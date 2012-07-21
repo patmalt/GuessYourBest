@@ -135,6 +135,8 @@
 		970B122C15BAFA68002DA2D5 /* MainMenuLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B122B15BAFA68002DA2D5 /* MainMenuLayer.m */; };
 		970B123915BAFD2A002DA2D5 /* GCHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B123815BAFD2A002DA2D5 /* GCHelper.m */; };
 		97291FE615BB20FC00374A6B /* GameScreenLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 97291FE515BB20FC00374A6B /* GameScreenLayer.m */; };
+		9729200015BB548F00374A6B /* app-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 97291FFF15BB548F00374A6B /* app-icon.png */; };
+		9729200215BB5EFD00374A6B /* BG@x2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9729200115BB5EFD00374A6B /* BG@x2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -404,6 +406,8 @@
 		970B123815BAFD2A002DA2D5 /* GCHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCHelper.m; sourceTree = "<group>"; };
 		97291FE415BB20FC00374A6B /* GameScreenLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScreenLayer.h; sourceTree = "<group>"; };
 		97291FE515BB20FC00374A6B /* GameScreenLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScreenLayer.m; sourceTree = "<group>"; };
+		97291FFF15BB548F00374A6B /* app-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "app-icon.png"; path = "../app-icon.png"; sourceTree = "<group>"; };
+		9729200115BB5EFD00374A6B /* BG@x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BG@x2.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -477,6 +481,8 @@
 		970B10A515BAF854002DA2D5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9729200115BB5EFD00374A6B /* BG@x2.png */,
+				97291FFF15BB548F00374A6B /* app-icon.png */,
 				970B10A615BAF854002DA2D5 /* Default.png */,
 				970B10A815BAF854002DA2D5 /* Default-Landscape~ipad.png */,
 				970B10AA15BAF854002DA2D5 /* fps_images.png */,
@@ -930,6 +936,8 @@
 				970B10BB15BAF854002DA2D5 /* Icon@2x.png in Resources */,
 				970B10BE15BAF854002DA2D5 /* iTunesArtwork in Resources */,
 				970B11FC15BAF855002DA2D5 /* ChangeLog in Resources */,
+				9729200015BB548F00374A6B /* app-icon.png in Resources */,
+				9729200215BB5EFD00374A6B /* BG@x2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

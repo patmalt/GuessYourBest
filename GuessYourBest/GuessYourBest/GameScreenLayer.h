@@ -53,8 +53,26 @@ typedef struct {
     
     NSString *otherPlayerID;
     GameState gameState;
+    
+    int localPlayerScore;
+    int remotePlayerScore;
+    CCLabelTTF *localPlaerScoreLabel;
+    CCLabelTTF *remotePlaerScoreLabel;
+    
+    CCLabelTTF *localGuessLabel;
+    CCLabelTTF *remoteGuessLabel;
+    float localPlayerGuess;
+    float remotePlayerLabel;
 }
 
-+(id) scene;
+@property (assign) CCLabelTTF *localPlaerScoreLabel;
+@property (assign) CCLabelTTF *remotePlaerScoreLabel;
+
+@property (assign) CCLabelTTF *localGuessLabel;
+@property (assign) CCLabelTTF *remoteGuessLabel;
+
++ (id) scene;
+- (void) makeGuess:(float)guess;
+- (void) showGuessPicker;
 
 @end

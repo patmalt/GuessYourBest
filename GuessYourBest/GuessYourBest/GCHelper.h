@@ -27,6 +27,9 @@
     id <GCHelperDelegate> delegate;
     
     NSMutableDictionary *playersDict;
+    NSString *otherPlayerID;
+    
+    NSString *resultString;
 }
 
 @property (assign, readonly) BOOL gameCenterAvailable;
@@ -35,7 +38,11 @@
 @property (retain) UIViewController *presentingViewController;
 @property (retain) GKMatch *match;
 @property (assign) id <GCHelperDelegate> delegate;
+
 @property (assign) NSMutableDictionary *playersDict;
+@property (assign) NSString *otherPlayerID;
+
+@property (assign) NSString *resultString;
 
 + (GCHelper *)sharedInstance;
 - (void)authenticateLocalUser;

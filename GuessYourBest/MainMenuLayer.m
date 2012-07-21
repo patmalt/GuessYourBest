@@ -30,11 +30,15 @@
     
     if( (self=[super init] )) {
         
+        CGSize size = [[CCDirector sharedDirector] winSize];
+        
+        CCSprite *background = [CCSprite spriteWithFile:@"BG.png"];
+        background.position = ccp(size.width/2, size.height/2);
+        [self addChild:background];
+        
         CCLabelTTF *message = [CCLabelTTF labelWithString:@"Guess Your Best" fontName:@"Marker Felt" fontSize:64];
         message.position =  ccp(240, 220);
         [self addChild: message];
-        
-        CGSize size = [[CCDirector sharedDirector] winSize];
         
         // Default font size will be 28 points.
 		[CCMenuItemFont setFontSize:28];
@@ -67,7 +71,6 @@
 
 - (void) dealloc
 {
-    
     [super dealloc];
 }
 
@@ -81,13 +84,24 @@
 
 - (void)matchEnded {    
     CCLOG(@"Match ended"); 
-    [[GCHelper sharedInstance].match disconnect];
-    [GCHelper sharedInstance].match = nil;
+    
+     GCHelper *helper = [GCHelper sharedInstance];
+    
+    [helper.match disconnect];
+    helper.match = nil;
+    helper.otherPlayerID = nil;
+    
     [[CCDirector sharedDirector] popScene];
 }
 
 - (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
     CCLOG(@"Received data");
+    
+    GCHelper *helper = [GCHelper sharedInstance];
+    
+    if (helper.otherPlayerID == nil) {
+        helper.otherPlayerID = playerID;
+    }
 }
 
 @end

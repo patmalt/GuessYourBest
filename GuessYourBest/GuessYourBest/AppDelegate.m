@@ -74,6 +74,9 @@
 	// and add the scene to the stack. The director will run it when it automatically when the view is displayed.
 	[director_ pushScene: [IntroLayer scene]]; 
 
+    guessEntryField = [[UITextField alloc] initWithFrame:
+                           CGRectMake(60, 165, 200, 90)];
+    [guessEntryField setDelegate:self];    
 	
 	// Create a Navigation Controller with the Director
 	navController_ = [[UINavigationController alloc] initWithRootViewController:director_];
@@ -87,6 +90,28 @@
 	[window_ makeKeyAndVisible];
 	
 	return YES;
+}
+
+- (void)showMakeGuess
+{
+    [guessEntryField setText:@""];
+    [window_ addSubview:guessEntryField];
+    [guessEntryField becomeFirstResponder];    
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField*)textField {
+    //Terminate editing
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField*)textField {
+    if (textField==guessEntryField) {
+        [guessEntryField endEditing:YES];
+        [guessEntryField removeFromSuperview];
+        // here is where you should do something with the data they entered
+        [GCHelper sharedInstance].resultString = guessEntryField.text;
+    }
 }
 
 // Supported orientations: Landscape. Customize it for your own needs

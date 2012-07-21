@@ -10,8 +10,11 @@
 
 #import "MainMenuLayer.h"
 #import "GCHelper.h"
+#import "AppDelegate.h"
 
 @implementation GameScreenLayer
+
+@synthesize localPlaerScoreLabel, localGuessLabel, remotePlaerScoreLabel, remoteGuessLabel;
 
 +(id) scene
 {
@@ -28,8 +31,27 @@
     
     if( (self=[super init] )) {
         
-        //NSString *localPlayerAlias = [GKLocalPlayer localPlayer].alias;
-       // NSString *remotePlaterAlias = 
+        localPlayerScore = 0;
+        remotePlayerScore = 0;
+        
+        localPlaerScoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%i",localPlayerScore] fontName:@"Marker Felt" fontSize:20];
+        localPlaerScoreLabel.position = ccp(60,200);
+        [self addChild:localPlaerScoreLabel];
+        
+        remotePlaerScoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%i",remotePlayerScore] fontName:@"Marker Felt" fontSize:20];
+        remotePlaerScoreLabel.position = ccp(400,200);
+        [self addChild:remotePlaerScoreLabel];
+        
+        GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
+        GKPlayer *remotePlayer = [[[GCHelper sharedInstance]playersDict] objectForKey:[[GCHelper sharedInstance]otherPlayerID]];
+        
+        CCLabelTTF *localPlayerAliasLabel = [CCLabelTTF labelWithString:localPlayer.alias fontName:@"Marker Felt" fontSize:20];
+        localPlayerAliasLabel.position = ccp(60,220);
+        [self addChild:localPlayerAliasLabel];
+        
+        CCLabelTTF *remotePlayerAliasLabel = [CCLabelTTF labelWithString:remotePlayer.alias fontName:@"Marker Felt" fontSize:20];
+        remotePlayerAliasLabel.position = ccp(400,220);
+        [self addChild:remotePlayerAliasLabel];
         
         CCLabelTTF *message = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Game Screen"] fontName:@"Marker Felt" fontSize:20];
         message.position =  ccp(240, 220);
@@ -49,13 +71,17 @@
         
         
 		CCMenu *menu = [CCMenu menuWithItems:game, nil];
-		
 		[menu alignItemsHorizontallyWithPadding:20];
 		[menu setPosition:ccp( size.width/2, size.height/2 - 50)];
-		
-		// Add the menu to the layer
 		[self addChild:menu];
         
+        
+        CCMenuItemFont *makeGuess = [CCMenuItemFont itemWithString:@"Guess" target:self selector:@selector(showNumberPicker)];
+        CCMenu *guessMenu = [CCMenu menuWithItems:makeGuess, nil];
+        [guessMenu alignItemsHorizontallyWithPadding:20];
+		[guessMenu setPosition:ccp( size.width/2 - 40, size.height/2 - 80)];
+        [self addChild:guessMenu];
+		
     }
     
     return self;
@@ -67,6 +93,33 @@
     [super dealloc];
 }
 
+- (void) showGuessPicker
+{
+    AppController *delegate = (AppController*)[[UIApplication sharedApplication]delegate];  
+    [delegate showMakeGuess];
+}
 
+
+- (void) makeGuess:(float)guess
+{
+    NSMutableData *dataToSend = [NSMutableData dataWithCapacity:0];
+    [dataToSend appendBytes:&guess length:sizeof(float)];
+    [self sendData:dataToSend];
+    
+}
+
+- (void)sendGuess 
+{
+    
+}
+
+- (void)sendData:(NSData *)data {
+    NSError *error;
+    BOOL success = [[GCHelper sharedInstance].match sendDataToAllPlayers:data withDataMode:GKMatchSendDataReliable error:&error];
+    if (!success) {
+        CCLOG(@"Error sending init packet");
+        [[[GCHelper sharedInstance]delegate] matchEnded];
+    }
+}
 
 @end

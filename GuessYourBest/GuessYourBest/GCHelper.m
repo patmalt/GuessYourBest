@@ -11,6 +11,7 @@
 @implementation GCHelper
 
 @synthesize gameCenterAvailable,match,delegate,presentingViewController,userAuthenticated,playersDict;
+@synthesize otherPlayerID,resultString;
 
 static GCHelper *sharedHelper = nil;
 
@@ -49,6 +50,12 @@ static GCHelper *sharedHelper = nil;
     return self;
 }
 
+- (void)dealloc
+{
+    [otherPlayerID release];
+    [super dealloc];
+}
+
 - (void)authenticationChanged {    
     
     if ([GKLocalPlayer localPlayer].isAuthenticated && !userAuthenticated) {
@@ -77,6 +84,7 @@ static GCHelper *sharedHelper = nil;
             for (GKPlayer *player in players) {
                 NSLog(@"Found player: %@", player.alias);
                 [playersDict setObject:player forKey:player.playerID];
+                otherPlayerID = player.playerID;
             }
             
             // Notify delegate match can begin
