@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
+#import "GCHelper.h"
 
-@interface MainMenuLayer : CCLayer
+@interface MainMenuLayer : CCLayer <GCHelperDelegate>
 
 +(id) scene;
 

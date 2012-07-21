@@ -7,6 +7,7 @@
 //
 
 #import "MainMenuLayer.h"
+#import "AppDelegate.h"
 
 @implementation MainMenuLayer
 
@@ -39,7 +40,8 @@
 		// Achievement Menu Item using blocks
 		CCMenuItem *game = [CCMenuItemFont itemWithString:@"New Game" block:^(id sender) {
 			
-			//[[CCDirector sharedDirector] replaceScene:[HelloWorldLayer scene]];
+			AppController *delegate = (AppController*)[[UIApplication sharedApplication]delegate];               
+            [[GCHelper sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:delegate.navController delegate:self];
 			
 		}];
         
@@ -52,6 +54,7 @@
 		
 		// Add the menu to the layer
 		[self addChild:menu];
+        
     }
     return self;
 }
@@ -60,6 +63,21 @@
 {
     
     [super dealloc];
+}
+
+
+#pragma mark GCHelperDelegate
+
+- (void)matchStarted {    
+    CCLOG(@"Match started");        
+}
+
+- (void)matchEnded {    
+    CCLOG(@"Match ended");    
+}
+
+- (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
+    CCLOG(@"Received data");
 }
 
 @end
