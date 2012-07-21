@@ -134,6 +134,7 @@
 		970B122415BAF856002DA2D5 /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B122315BAF856002DA2D5 /* IntroLayer.m */; };
 		970B122C15BAFA68002DA2D5 /* MainMenuLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B122B15BAFA68002DA2D5 /* MainMenuLayer.m */; };
 		970B123915BAFD2A002DA2D5 /* GCHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B123815BAFD2A002DA2D5 /* GCHelper.m */; };
+		97291FE615BB20FC00374A6B /* GameScreenLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 97291FE515BB20FC00374A6B /* GameScreenLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -401,6 +402,8 @@
 		970B122B15BAFA68002DA2D5 /* MainMenuLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainMenuLayer.m; path = ../MainMenuLayer.m; sourceTree = "<group>"; };
 		970B123715BAFD2A002DA2D5 /* GCHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCHelper.h; sourceTree = "<group>"; };
 		970B123815BAFD2A002DA2D5 /* GCHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCHelper.m; sourceTree = "<group>"; };
+		97291FE415BB20FC00374A6B /* GameScreenLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScreenLayer.h; sourceTree = "<group>"; };
+		97291FE515BB20FC00374A6B /* GameScreenLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScreenLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -462,6 +465,7 @@
 				970B121C15BAF856002DA2D5 /* AppDelegate.h */,
 				970B121D15BAF856002DA2D5 /* AppDelegate.m */,
 				970B122D15BAFAA7002DA2D5 /* Main Menu */,
+				97291FE215BB20E900374A6B /* Game Screen */,
 				970B123315BAFC90002DA2D5 /* GCHelper */,
 				970B10A515BAF854002DA2D5 /* Resources */,
 				970B10BF15BAF854002DA2D5 /* libs */,
@@ -853,6 +857,15 @@
 			name = GCHelper;
 			sourceTree = "<group>";
 		};
+		97291FE215BB20E900374A6B /* Game Screen */ = {
+			isa = PBXGroup;
+			children = (
+				97291FE415BB20FC00374A6B /* GameScreenLayer.h */,
+				97291FE515BB20FC00374A6B /* GameScreenLayer.m */,
+			);
+			name = "Game Screen";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1032,6 +1045,7 @@
 				970B122415BAF856002DA2D5 /* IntroLayer.m in Sources */,
 				970B122C15BAFA68002DA2D5 /* MainMenuLayer.m in Sources */,
 				970B123915BAFD2A002DA2D5 /* GCHelper.m in Sources */,
+				97291FE615BB20FC00374A6B /* GameScreenLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1135,6 +1149,7 @@
 				970B122915BAF856002DA2D5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

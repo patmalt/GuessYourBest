@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <GameKit/GameKit.h>
 
+
 @protocol GCHelperDelegate 
     - (void)matchStarted;
     - (void)matchEnded;
@@ -24,13 +25,17 @@
     GKMatch *match;
     BOOL matchStarted;
     id <GCHelperDelegate> delegate;
+    
+    NSMutableDictionary *playersDict;
 }
 
 @property (assign, readonly) BOOL gameCenterAvailable;
+@property (assign) BOOL userAuthenticated;
 
 @property (retain) UIViewController *presentingViewController;
 @property (retain) GKMatch *match;
 @property (assign) id <GCHelperDelegate> delegate;
+@property (assign) NSMutableDictionary *playersDict;
 
 + (GCHelper *)sharedInstance;
 - (void)authenticateLocalUser;

@@ -10,7 +10,7 @@
 
 @implementation GCHelper
 
-@synthesize gameCenterAvailable,match,delegate,presentingViewController;
+@synthesize gameCenterAvailable,match,delegate,presentingViewController,userAuthenticated,playersDict;
 
 static GCHelper *sharedHelper = nil;
 
@@ -58,6 +58,33 @@ static GCHelper *sharedHelper = nil;
         NSLog(@"Authentication changed: player not authenticated");
         userAuthenticated = FALSE;
     }
+    
+}
+
+- (void)lookupPlayers {
+    
+    NSLog(@"Looking up %d players...", match.playerIDs.count);
+    [GKPlayer loadPlayersForIdentifiers:match.playerIDs withCompletionHandler:^(NSArray *players, NSError *error) {
+        
+        if (error != nil) {
+            NSLog(@"Error retrieving player info: %@", error.localizedDescription);
+            matchStarted = NO;
+            [delegate matchEnded];
+        } else {
+            
+            // Populate players dict
+            self.playersDict = [NSMutableDictionary dictionaryWithCapacity:players.count];
+            for (GKPlayer *player in players) {
+                NSLog(@"Found player: %@", player.alias);
+                [playersDict setObject:player forKey:player.playerID];
+            }
+            
+            // Notify delegate match can begin
+            matchStarted = YES;
+            [delegate matchStarted];
+            
+        }
+    }];
     
 }
 
@@ -120,6 +147,7 @@ static GCHelper *sharedHelper = nil;
     match.delegate = self;
     if (!matchStarted && match.expectedPlayerCount == 0) {
         NSLog(@"Ready to start match!");
+        [self lookupPlayers];
     }
 }
 
@@ -144,6 +172,7 @@ static GCHelper *sharedHelper = nil;
             
             if (!matchStarted && theMatch.expectedPlayerCount == 0) {
                 NSLog(@"Ready to start match!");
+                [self lookupPlayers];
             }
             
             break; 

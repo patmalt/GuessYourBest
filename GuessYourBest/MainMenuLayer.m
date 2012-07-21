@@ -8,6 +8,7 @@
 
 #import "MainMenuLayer.h"
 #import "AppDelegate.h"
+#import "GameScreenLayer.h"
 
 @implementation MainMenuLayer
 
@@ -16,6 +17,7 @@
     CCScene *scene = [CCScene node];
     
     MainMenuLayer *layer = [MainMenuLayer node];
+    layer.tag = 100;
 	
 	// add layer as a child to scene
 	[scene addChild: layer];
@@ -40,12 +42,16 @@
 		// Achievement Menu Item using blocks
 		CCMenuItem *game = [CCMenuItemFont itemWithString:@"New Game" block:^(id sender) {
 			
-			AppController *delegate = (AppController*)[[UIApplication sharedApplication]delegate];               
-            [[GCHelper sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:delegate.navController delegate:self];
-			
+            if ([[GCHelper sharedInstance]userAuthenticated] == YES) {
+                AppController *delegate = (AppController*)[[UIApplication sharedApplication]delegate];               
+                [[GCHelper sharedInstance] findMatchWithMinPlayers:2 maxPlayers:2 viewController:delegate.navController delegate:self];
+            }
+            else {
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Game Center Not Authenticated" message:@"You must use Game Center to play this game." delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
+                [alert show];
+                [alert release];
+            }
 		}];
-        
-        
 		
 		CCMenu *menu = [CCMenu menuWithItems:game, nil];
 		
@@ -69,11 +75,15 @@
 #pragma mark GCHelperDelegate
 
 - (void)matchStarted {    
-    CCLOG(@"Match started");        
+    CCLOG(@"Match started");
+    [[CCDirector sharedDirector] pushScene:[CCTransitionFade transitionWithDuration:1.0 scene:[GameScreenLayer scene] withColor:ccWHITE]];
 }
 
 - (void)matchEnded {    
-    CCLOG(@"Match ended");    
+    CCLOG(@"Match ended"); 
+    [[GCHelper sharedInstance].match disconnect];
+    [GCHelper sharedInstance].match = nil;
+    [[CCDirector sharedDirector] popScene];
 }
 
 - (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
