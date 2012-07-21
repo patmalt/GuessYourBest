@@ -131,8 +131,8 @@
 		970B121615BAF856002DA2D5 /* vec4.c in Sources */ = {isa = PBXBuildFile; fileRef = 970B121515BAF856002DA2D5 /* vec4.c */; };
 		970B121B15BAF856002DA2D5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B121A15BAF856002DA2D5 /* main.m */; };
 		970B121E15BAF856002DA2D5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B121D15BAF856002DA2D5 /* AppDelegate.m */; };
-		970B122115BAF856002DA2D5 /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B122015BAF856002DA2D5 /* HelloWorldLayer.m */; };
 		970B122415BAF856002DA2D5 /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B122315BAF856002DA2D5 /* IntroLayer.m */; };
+		970B122C15BAFA68002DA2D5 /* MainMenuLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B122B15BAFA68002DA2D5 /* MainMenuLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -394,10 +394,10 @@
 		970B121A15BAF856002DA2D5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		970B121C15BAF856002DA2D5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		970B121D15BAF856002DA2D5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		970B121F15BAF856002DA2D5 /* HelloWorldLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldLayer.h; sourceTree = "<group>"; };
-		970B122015BAF856002DA2D5 /* HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldLayer.m; sourceTree = "<group>"; };
 		970B122215BAF856002DA2D5 /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		970B122315BAF856002DA2D5 /* IntroLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
+		970B122A15BAFA68002DA2D5 /* MainMenuLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainMenuLayer.h; path = ../MainMenuLayer.h; sourceTree = "<group>"; };
+		970B122B15BAFA68002DA2D5 /* MainMenuLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainMenuLayer.m; path = ../MainMenuLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -456,10 +456,9 @@
 		970B10A415BAF854002DA2D5 /* GuessYourBest */ = {
 			isa = PBXGroup;
 			children = (
+				970B122D15BAFAA7002DA2D5 /* Main Menu */,
 				970B121C15BAF856002DA2D5 /* AppDelegate.h */,
 				970B121D15BAF856002DA2D5 /* AppDelegate.m */,
-				970B121F15BAF856002DA2D5 /* HelloWorldLayer.h */,
-				970B122015BAF856002DA2D5 /* HelloWorldLayer.m */,
 				970B122215BAF856002DA2D5 /* IntroLayer.h */,
 				970B122315BAF856002DA2D5 /* IntroLayer.m */,
 				970B10A515BAF854002DA2D5 /* Resources */,
@@ -832,6 +831,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		970B122D15BAFAA7002DA2D5 /* Main Menu */ = {
+			isa = PBXGroup;
+			children = (
+				970B122A15BAFA68002DA2D5 /* MainMenuLayer.h */,
+				970B122B15BAFA68002DA2D5 /* MainMenuLayer.m */,
+			);
+			name = "Main Menu";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -859,6 +867,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "Patrick Maltagliati";
 			};
 			buildConfigurationList = 970B108815BAF853002DA2D5 /* Build configuration list for PBXProject "GuessYourBest" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1007,8 +1016,8 @@
 				970B121615BAF856002DA2D5 /* vec4.c in Sources */,
 				970B121B15BAF856002DA2D5 /* main.m in Sources */,
 				970B121E15BAF856002DA2D5 /* AppDelegate.m in Sources */,
-				970B122115BAF856002DA2D5 /* HelloWorldLayer.m in Sources */,
 				970B122415BAF856002DA2D5 /* IntroLayer.m in Sources */,
+				970B122C15BAFA68002DA2D5 /* MainMenuLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
