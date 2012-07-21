@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "cocos2d.h"
 
-@interface MainMenuLayer : NSObject
+@interface MainMenuLayer : CCLayer
+
++(id) scene;
 
 @end
