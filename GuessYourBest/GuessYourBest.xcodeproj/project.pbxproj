@@ -175,6 +175,7 @@
 		9729206915BBBD4F00374A6B /* 8-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 9729205E15BBBD4F00374A6B /* 8-hd.png */; };
 		9729206A15BBBD4F00374A6B /* 9-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 9729205F15BBBD4F00374A6B /* 9-hd.png */; };
 		9729206C15BBBD9F00374A6B /* game_screen_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 9729206B15BBBD9400374A6B /* game_screen_bg.png */; };
+		9729207015BBBEB800374A6B /* products.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9729206F15BBBEB700374A6B /* products.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -485,6 +486,9 @@
 		9729205E15BBBD4F00374A6B /* 8-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "8-hd.png"; sourceTree = "<group>"; };
 		9729205F15BBBD4F00374A6B /* 9-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "9-hd.png"; sourceTree = "<group>"; };
 		9729206B15BBBD9400374A6B /* game_screen_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = game_screen_bg.png; sourceTree = "<group>"; };
+		9729206D15BBBEAC00374A6B /* Product.h */ = {isa = PBXFileReference; name = Product.h; path = ../Product.h; sourceTree = "<group>"; };
+		9729206E15BBBEAD00374A6B /* Product.m */ = {isa = PBXFileReference; name = Product.m; path = ../Product.m; sourceTree = "<group>"; };
+		9729206F15BBBEB700374A6B /* products.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = products.plist; path = ../products.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -548,6 +552,7 @@
 				970B122D15BAFAA7002DA2D5 /* Main Menu */,
 				97291FE215BB20E900374A6B /* Game Screen */,
 				970B123315BAFC90002DA2D5 /* GCHelper */,
+				9729207115BBC04D00374A6B /* Product */,
 				970B10A515BAF854002DA2D5 /* Resources */,
 				970B10BF15BAF854002DA2D5 /* libs */,
 				970B121815BAF856002DA2D5 /* Supporting Files */,
@@ -1004,6 +1009,16 @@
 			path = "product_img@x2";
 			sourceTree = "<group>";
 		};
+		9729207115BBC04D00374A6B /* Product */ = {
+			isa = PBXGroup;
+			children = (
+				9729206F15BBBEB700374A6B /* products.plist */,
+				9729206D15BBBEAC00374A6B /* Product.h */,
+				9729206E15BBBEAD00374A6B /* Product.m */,
+			);
+			name = Product;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1108,6 +1123,7 @@
 				9729206915BBBD4F00374A6B /* 8-hd.png in Resources */,
 				9729206A15BBBD4F00374A6B /* 9-hd.png in Resources */,
 				9729206C15BBBD9F00374A6B /* game_screen_bg.png in Resources */,
+				9729207015BBBEB800374A6B /* products.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
