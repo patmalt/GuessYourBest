@@ -31,18 +31,14 @@
         
         CGSize size = [[CCDirector sharedDirector] winSize];
         
-        CCSprite *background = [CCSprite spriteWithFile:@"BG.png"];
+        CCSprite *background = [CCSprite spriteWithFile:@"load_screen_bg.png"];
         background.position = ccp(size.width/2, size.height/2);
         [self addChild:background];
         
-        CCLabelTTF *message = [CCLabelTTF labelWithString:@"Guess Your Best" fontName:@"Marker Felt" fontSize:64];
-        message.position =  ccp(240, 220);
-        [self addChild: message];
-        
         // Default font size will be 28 points.
 		[CCMenuItemFont setFontSize:28];
-		
-		CCMenuItem *game = [CCMenuItemFont itemWithString:@"New Game" block:^(id sender) {
+        
+        CCMenuItem *game = [CCMenuItemImage itemWithNormalImage:@"new_game_red_button.png" selectedImage:@"new_game_red_button_selected.png" block:^(id sender) {
 			
             if ([[GCHelper sharedInstance]userAuthenticated] == YES) {
                 AppController *delegate = (AppController*)[[UIApplication sharedApplication]delegate];               
@@ -58,7 +54,7 @@
 		CCMenu *menu = [CCMenu menuWithItems:game, nil];
 		
 		[menu alignItemsHorizontallyWithPadding:20];
-		[menu setPosition:ccp( size.width/2, size.height/2 - 50)];
+		[menu setPosition:ccp( size.width/2, size.height/2 - 100)];
 		
 		// Add the menu to the layer
 		[self addChild:menu];
@@ -85,6 +81,13 @@
     CCLOG(@"Match ended"); 
     
     GCHelper *helper = [GCHelper sharedInstance];
+    
+    AppController *delegate = (AppController*)[[UIApplication sharedApplication]delegate];
+    if ([delegate.guessEntryField isEditing]) {
+        delegate.sendGuessFlag = NO;
+        [delegate.guessEntryField resignFirstResponder];
+        [delegate.guessEntryField removeFromSuperview];
+    }
     
     [helper.match disconnect];
     helper.match = nil;
@@ -124,7 +127,7 @@
         
         MessageSendScore *messageSendCore = (MessageSendScore*)[data bytes];
         
-        NSString *string1 = [NSString stringWithFormat:@"%f",messageSendCore->number];
+        NSString *string1 = [NSString stringWithFormat:@"$%.0f",messageSendCore->number];
         
         [game showAlert:string1];
         

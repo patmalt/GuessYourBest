@@ -17,11 +17,14 @@
 
 	CCDirectorIOS	*director_;							// weak ref
     UITextField *guessEntryField;
+    BOOL sendGuessFlag;
 }
 
 @property (nonatomic, retain) UIWindow *window;
 @property (readonly) UINavigationController *navController;
 @property (readonly) CCDirectorIOS *director;
+@property (readonly) UITextField *guessEntryField;
+@property (assign) BOOL sendGuessFlag;
 
 - (void)showMakeGuess;
 

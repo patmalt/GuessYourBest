@@ -8,6 +8,7 @@
 
 
 typedef enum {
+    kMessageRemoteTyping,
     kMessageSendGuess
 } MessageType;
 
@@ -19,3 +20,8 @@ typedef struct {
     Message message;
     float number;
 } MessageSendScore;
+
+typedef struct {
+    Message message;
+    BOOL typing;
+} MessageRemoteTyping;

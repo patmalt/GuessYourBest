@@ -3,7 +3,7 @@
 //  GuessYourBest
 //
 //  Created by Patrick Maltagliati on 7/21/12.
-//  Copyright __MyCompanyName__ 2012. All rights reserved.
+//  Copyright Patrick Maltagliati 2012. All rights reserved.
 //
 
 #import "cocos2d.h"
@@ -13,6 +13,8 @@
 #import "GCHelper.h"
 
 @implementation AppController
+
+@synthesize guessEntryField,sendGuessFlag;
 
 @synthesize window=window_, navController=navController_, director=director_;
 
@@ -74,12 +76,25 @@
 	// and add the scene to the stack. The director will run it when it automatically when the view is displayed.
 	[director_ pushScene: [IntroLayer scene]]; 
 
-    guessEntryField = [[UITextField alloc] initWithFrame:CGRectMake(60, 165, 200, 90)];
-    
+    guessEntryField = [[UITextField alloc] initWithFrame:CGRectMake(1, 410, 90, 20)];
+    guessEntryField.transform = CGAffineTransformMakeRotation(-1.57);
+    guessEntryField.keyboardType = UIKeyboardTypeNumberPad;
     [guessEntryField setTextColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:1.0]]; 
     [guessEntryField setBackgroundColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:1.0]];
     
-    [guessEntryField setDelegate:self];    
+    UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+    numberToolbar.barStyle = UIBarStyleBlackTranslucent;
+    numberToolbar.items = [NSArray arrayWithObjects:
+                           [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                           [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneWithNumberPad)],
+                           nil];
+    [numberToolbar sizeToFit];
+    guessEntryField.inputAccessoryView = numberToolbar;
+    [numberToolbar release];
+    
+    [guessEntryField setDelegate:self];   
+    
+    sendGuessFlag = YES;
 	
 	// Create a Navigation Controller with the Director
 	navController_ = [[UINavigationController alloc] initWithRootViewController:director_];
@@ -96,11 +111,6 @@
 }
 
 
-
-
-
-
-
 - (void)showMakeGuess
 {
     [guessEntryField setText:@""];
@@ -108,40 +118,41 @@
     [guessEntryField becomeFirstResponder];    
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField*)textField {
-    //Terminate editing
-    [textField resignFirstResponder];
-    return YES;
-}
 
-- (void)textFieldDidEndEditing:(UITextField*)textField {
-    
-    if (textField==guessEntryField) {
+-(void)doneWithNumberPad {
+
+
+    if (sendGuessFlag == YES) {
+            
         [guessEntryField endEditing:YES];
         [guessEntryField removeFromSuperview];
         // here is where you should do something with the data they entered
         CCArray *arr = [[CCDirector sharedDirector] runningScene].children;
-
+            
         CCNode *curr = nil;
-        
+            
         for (CCNode *node in arr) {
             if ([node isKindOfClass:[GameScreenLayer class]]) {
                 curr = node;
                 break;
             }
         }
-        
-        NSLog(@"%@",curr);
+            
         GameScreenLayer *game = (GameScreenLayer*)curr;
-        NSLog(@"%@",game);
-        
-        [game makeGuess:textField.text];
+        [game makeGuess:guessEntryField.text];
     }
+    else {
+        sendGuessFlag = YES;
+    }
+    
+    [guessEntryField resignFirstResponder];
 }
 
 
-
-
+- (void)textFieldDidEndEditing:(UITextField*)textField {
+    
+    
+}
 
 
 // Supported orientations: Landscape. Customize it for your own needs

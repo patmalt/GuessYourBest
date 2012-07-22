@@ -22,9 +22,6 @@
     GameScreenLayer *layer = [GameScreenLayer node];
 	// add layer as a child to scene
 	[newScene addChild: layer];
-    
-    //[newScene addChild:layer z:1 tag:1000];
-    
     return newScene;
 }
 
@@ -34,56 +31,62 @@
     
     if( (self=[super init] )) {
         
-        localPlayerScore = 0;
-        remotePlayerScore = 0;
+        CGSize size = [[CCDirector sharedDirector] winSize];
         
-        localPlaerScoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%i",localPlayerScore] fontName:@"Marker Felt" fontSize:20];
-        localPlaerScoreLabel.position = ccp(60,200);
-        [self addChild:localPlaerScoreLabel];
-        
-        remotePlaerScoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%i",remotePlayerScore] fontName:@"Marker Felt" fontSize:20];
-        remotePlaerScoreLabel.position = ccp(400,200);
-        [self addChild:remotePlaerScoreLabel];
+        CCSprite *background = [CCSprite spriteWithFile:@"game_screen_bg.png"];
+        background.position = ccp(size.width/2, size.height/2);
+        [self addChild:background];
         
         GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
         GKPlayer *remotePlayer = [[[GCHelper sharedInstance]playersDict] objectForKey:[[GCHelper sharedInstance]otherPlayerID]];
         
         CCLabelTTF *localPlayerAliasLabel = [CCLabelTTF labelWithString:localPlayer.alias fontName:@"Marker Felt" fontSize:20];
-        localPlayerAliasLabel.position = ccp(60,220);
+        localPlayerAliasLabel.position = ccp(65,305);
         [self addChild:localPlayerAliasLabel];
         
         CCLabelTTF *remotePlayerAliasLabel = [CCLabelTTF labelWithString:remotePlayer.alias fontName:@"Marker Felt" fontSize:20];
-        remotePlayerAliasLabel.position = ccp(400,220);
+        remotePlayerAliasLabel.position = ccp(405,305);
         [self addChild:remotePlayerAliasLabel];
         
-        //CCLabelTTF *message = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Game Screen"] fontName:@"Marker Felt" fontSize:20];
-        //message.position =  ccp(240, 220);
-        //[self addChild: message];
+        localPlayerScore = 0;
+        remotePlayerScore = 0;
         
-        CGSize size = [[CCDirector sharedDirector] winSize];
+        localPlaerScoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Score: %i",localPlayerScore] fontName:@"Marker Felt" fontSize:20];
+        localPlaerScoreLabel.position = ccp(60,250);
+        [self addChild:localPlaerScoreLabel];
+        
+        remotePlaerScoreLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Score: %i",remotePlayerScore] fontName:@"Marker Felt" fontSize:20];
+        remotePlaerScoreLabel.position = ccp(400,250);
+        [self addChild:remotePlaerScoreLabel];
+        
         
         // Default font size will be 28 points.
 		[CCMenuItemFont setFontSize:28];
 		
 		// Achievement Menu Item using blocks
-		CCMenuItem *game = [CCMenuItemFont itemWithString:@"Quit" block:^(id sender) {
-
+		CCMenuItem *quit = [CCMenuItemImage itemWithNormalImage:@"quit_red_button.png" selectedImage:@"quit_red_button_selected.png" block:^(id sender){
             [[[GCHelper sharedInstance]delegate]matchEnded];
             
 		}];
         
         
-		CCMenu *menu = [CCMenu menuWithItems:game, nil];
-		[menu alignItemsHorizontallyWithPadding:20];
-		[menu setPosition:ccp( size.width/2, size.height/2 - 50)];
+		CCMenu *menu = [CCMenu menuWithItems:quit, nil];
+		[menu setPosition:ccp( size.width/2 + 150, size.height/2 - 110)];
 		[self addChild:menu];
         
         
-        CCMenuItemFont *makeGuess = [CCMenuItemFont itemWithString:@"Guess" target:self selector:@selector(showGuessPicker)];
-        CCMenu *guessMenu = [CCMenu menuWithItems:makeGuess, nil];
-        [guessMenu alignItemsHorizontallyWithPadding:20];
-		[guessMenu setPosition:ccp( size.width/2 - 40, size.height/2 - 80)];
+        CCMenuItemImage *guess = [CCMenuItemImage itemWithNormalImage:@"guess_purple_button.png" selectedImage:@"guess_purple_button_selected.png" target:self selector:@selector(showGuessPicker)];
+        CCMenu *guessMenu = [CCMenu menuWithItems:guess, nil];
+		[guessMenu setPosition:ccp( size.width/2 - 150, size.height/2 - 110)];
         [self addChild:guessMenu];
+        
+        remoteGuessLabel = [CCLabelTTF labelWithString:@"---" fontName:@"Marker Felt" fontSize:20];
+        remoteGuessLabel.position = ccp(400,220);
+        [self addChild:remoteGuessLabel];
+        
+        localGuessLabel = [CCLabelTTF labelWithString:@"---" fontName:@"Marker Felt" fontSize:20];
+        localGuessLabel.position = ccp(60,220);
+        [self addChild:localGuessLabel];
 		
     }
     
@@ -110,6 +113,8 @@
     
     float a = [guess floatValue];
     
+    [localGuessLabel setString:[NSString stringWithFormat:@"$%.0f",a]];
+    
     message.number = a;
     NSData *data = [NSData dataWithBytes:&message length:sizeof(MessageSendScore)];
     [self sendData:data];
@@ -126,9 +131,7 @@
 
 - (void) showAlert:(NSString*)string
 {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Test" message:string delegate:nil cancelButtonTitle:@"Hell Yeah" otherButtonTitles: nil];
-    [alert show];
-    [alert release];
+    [remoteGuessLabel setString:string];
 }
 
 @end
