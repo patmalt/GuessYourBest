@@ -9,50 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <GameKit/GameKit.h>
 #import "cocos2d.h"
-
-
-typedef enum {
-    kGameStateWaitingForMatch = 0,
-    kGameStateWaitingForRandomNumber,
-    kGameStateWaitingForStart,
-    kGameStateActive,
-    kGameStateDone
-} GameState;
-
-typedef enum {
-    kEndReasonWin,
-    kEndReasonLose,
-    kEndReasonDisconnect
-} EndReason;
-
-typedef enum {
-    kMessageTypeGameBegin,
-    kMessageTypeMove,
-    kMessageTypeGameOver
-} MessageType;
-
-typedef struct {
-    MessageType messageType;
-} Message;
-
-typedef struct {
-    Message message;
-} MessageGameBegin;
-
-typedef struct {
-    Message message;
-} MessageMove;
-
-typedef struct {
-    Message message;
-    BOOL player1Won;
-} MessageGameOver;
-
+#import "MessageTypes.h"
 
 @interface GameScreenLayer : CCLayer {
     
-    NSString *otherPlayerID;
-    GameState gameState;
     
     int localPlayerScore;
     int remotePlayerScore;
@@ -71,8 +31,10 @@ typedef struct {
 @property (assign) CCLabelTTF *localGuessLabel;
 @property (assign) CCLabelTTF *remoteGuessLabel;
 
+
 + (id) scene;
-- (void) makeGuess:(float)guess;
+- (void) makeGuess:(NSString*)guess;
 - (void) showGuessPicker;
+- (void) showAlert:(NSString*)string;
 
 @end

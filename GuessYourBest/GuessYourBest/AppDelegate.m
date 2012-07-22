@@ -74,8 +74,11 @@
 	// and add the scene to the stack. The director will run it when it automatically when the view is displayed.
 	[director_ pushScene: [IntroLayer scene]]; 
 
-    guessEntryField = [[UITextField alloc] initWithFrame:
-                           CGRectMake(60, 165, 200, 90)];
+    guessEntryField = [[UITextField alloc] initWithFrame:CGRectMake(60, 165, 200, 90)];
+    
+    [guessEntryField setTextColor: [UIColor colorWithRed:0 green:0 blue:0 alpha:1.0]]; 
+    [guessEntryField setBackgroundColor:[UIColor colorWithRed:255 green:255 blue:255 alpha:1.0]];
+    
     [guessEntryField setDelegate:self];    
 	
 	// Create a Navigation Controller with the Director
@@ -92,6 +95,12 @@
 	return YES;
 }
 
+
+
+
+
+
+
 - (void)showMakeGuess
 {
     [guessEntryField setText:@""];
@@ -106,13 +115,34 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField*)textField {
+    
     if (textField==guessEntryField) {
         [guessEntryField endEditing:YES];
         [guessEntryField removeFromSuperview];
         // here is where you should do something with the data they entered
-        [GCHelper sharedInstance].resultString = guessEntryField.text;
+        CCArray *arr = [[CCDirector sharedDirector] runningScene].children;
+
+        CCNode *curr = nil;
+        
+        for (CCNode *node in arr) {
+            if ([node isKindOfClass:[GameScreenLayer class]]) {
+                curr = node;
+                break;
+            }
+        }
+        
+        NSLog(@"%@",curr);
+        GameScreenLayer *game = (GameScreenLayer*)curr;
+        NSLog(@"%@",game);
+        
+        [game makeGuess:textField.text];
     }
 }
+
+
+
+
+
 
 // Supported orientations: Landscape. Customize it for your own needs
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

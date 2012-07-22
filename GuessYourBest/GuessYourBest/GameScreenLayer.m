@@ -18,11 +18,14 @@
 
 +(id) scene
 {
-    CCScene *scene = [CCScene node];
+    CCScene *newScene = [CCScene node];
     GameScreenLayer *layer = [GameScreenLayer node];
 	// add layer as a child to scene
-	[scene addChild: layer];
-    return scene;
+	[newScene addChild: layer];
+    
+    //[newScene addChild:layer z:1 tag:1000];
+    
+    return newScene;
 }
 
 
@@ -53,9 +56,9 @@
         remotePlayerAliasLabel.position = ccp(400,220);
         [self addChild:remotePlayerAliasLabel];
         
-        CCLabelTTF *message = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Game Screen"] fontName:@"Marker Felt" fontSize:20];
-        message.position =  ccp(240, 220);
-        [self addChild: message];
+        //CCLabelTTF *message = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"Game Screen"] fontName:@"Marker Felt" fontSize:20];
+        //message.position =  ccp(240, 220);
+        //[self addChild: message];
         
         CGSize size = [[CCDirector sharedDirector] winSize];
         
@@ -76,7 +79,7 @@
 		[self addChild:menu];
         
         
-        CCMenuItemFont *makeGuess = [CCMenuItemFont itemWithString:@"Guess" target:self selector:@selector(showNumberPicker)];
+        CCMenuItemFont *makeGuess = [CCMenuItemFont itemWithString:@"Guess" target:self selector:@selector(showGuessPicker)];
         CCMenu *guessMenu = [CCMenu menuWithItems:makeGuess, nil];
         [guessMenu alignItemsHorizontallyWithPadding:20];
 		[guessMenu setPosition:ccp( size.width/2 - 40, size.height/2 - 80)];
@@ -100,17 +103,16 @@
 }
 
 
-- (void) makeGuess:(float)guess
+- (void) makeGuess:(NSString*)guess
 {
-    NSMutableData *dataToSend = [NSMutableData dataWithCapacity:0];
-    [dataToSend appendBytes:&guess length:sizeof(float)];
-    [self sendData:dataToSend];
+    MessageSendScore message;
+    message.message.messageType = kMessageSendGuess;
     
-}
-
-- (void)sendGuess 
-{
+    float a = [guess floatValue];
     
+    message.number = a;
+    NSData *data = [NSData dataWithBytes:&message length:sizeof(MessageSendScore)];
+    [self sendData:data];
 }
 
 - (void)sendData:(NSData *)data {
@@ -120,6 +122,13 @@
         CCLOG(@"Error sending init packet");
         [[[GCHelper sharedInstance]delegate] matchEnded];
     }
+}
+
+- (void) showAlert:(NSString*)string
+{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Test" message:string delegate:nil cancelButtonTitle:@"Hell Yeah" otherButtonTitles: nil];
+    [alert show];
+    [alert release];
 }
 
 @end

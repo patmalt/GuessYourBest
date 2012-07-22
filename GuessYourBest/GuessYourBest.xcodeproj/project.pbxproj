@@ -408,6 +408,7 @@
 		97291FE515BB20FC00374A6B /* GameScreenLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScreenLayer.m; sourceTree = "<group>"; };
 		97291FFF15BB548F00374A6B /* app-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "app-icon.png"; path = "../app-icon.png"; sourceTree = "<group>"; };
 		9729200115BB5EFD00374A6B /* BG@x2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BG@x2.png"; sourceTree = "<group>"; };
+		9729201015BB841500374A6B /* MessageTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageTypes.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -850,6 +851,7 @@
 				970B122315BAF856002DA2D5 /* IntroLayer.m */,
 				970B122A15BAFA68002DA2D5 /* MainMenuLayer.h */,
 				970B122B15BAFA68002DA2D5 /* MainMenuLayer.m */,
+				9729201015BB841500374A6B /* MessageTypes.h */,
 			);
 			name = "Main Menu";
 			sourceTree = "<group>";

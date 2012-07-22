@@ -17,10 +17,9 @@
     CCScene *scene = [CCScene node];
     
     MainMenuLayer *layer = [MainMenuLayer node];
-    layer.tag = 100;
-	
+    	
 	// add layer as a child to scene
-	[scene addChild: layer];
+	[scene addChild:layer];
     
     return scene;
 }
@@ -43,7 +42,6 @@
         // Default font size will be 28 points.
 		[CCMenuItemFont setFontSize:28];
 		
-		// Achievement Menu Item using blocks
 		CCMenuItem *game = [CCMenuItemFont itemWithString:@"New Game" block:^(id sender) {
 			
             if ([[GCHelper sharedInstance]userAuthenticated] == YES) {
@@ -79,29 +77,59 @@
 
 - (void)matchStarted {    
     CCLOG(@"Match started");
+
     [[CCDirector sharedDirector] pushScene:[CCTransitionFade transitionWithDuration:1.0 scene:[GameScreenLayer scene] withColor:ccWHITE]];
 }
 
 - (void)matchEnded {    
     CCLOG(@"Match ended"); 
     
-     GCHelper *helper = [GCHelper sharedInstance];
+    GCHelper *helper = [GCHelper sharedInstance];
     
     [helper.match disconnect];
     helper.match = nil;
     helper.otherPlayerID = nil;
     
     [[CCDirector sharedDirector] popScene];
+    
 }
 
 - (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
     CCLOG(@"Received data");
     
-    GCHelper *helper = [GCHelper sharedInstance];
+    //GCHelper *helper = [GCHelper sharedInstance];
     
-    if (helper.otherPlayerID == nil) {
+    /*if (helper.otherPlayerID == nil) {
         helper.otherPlayerID = playerID;
+    }*/
+    
+    
+    CCArray *arr = [[CCDirector sharedDirector] runningScene].children;
+
+    CCNode *curr = nil;
+
+    for (CCNode *node in arr) {
+        if ([node isKindOfClass:[GameScreenLayer class]]) {
+            curr = node;
+            break;
+        }
     }
+
+    GameScreenLayer *game = (GameScreenLayer*)curr;
+
+    
+    Message *message = (Message *) [data bytes];
+    
+    if (message->messageType == kMessageSendGuess) {
+        
+        MessageSendScore *messageSendCore = (MessageSendScore*)[data bytes];
+        
+        NSString *string1 = [NSString stringWithFormat:@"%f",messageSendCore->number];
+        
+        [game showAlert:string1];
+        
+    }
+    
 }
 
 @end

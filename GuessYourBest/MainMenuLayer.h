@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "GCHelper.h"
+#import "MessageTypes.h"
+
 
 @interface MainMenuLayer : CCLayer <GCHelperDelegate>
 
