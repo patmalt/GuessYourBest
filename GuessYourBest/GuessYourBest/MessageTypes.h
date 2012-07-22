@@ -11,7 +11,9 @@ typedef enum {
     kMessageRemoteTyping,
     kMessageSendGuess,
     kMessageScore,
-    kMessageEndGame
+    kMessageEndGame,
+    kMessageWaitStart,
+    kMessageWaitEnd
 } MessageType;
 
 typedef struct {
@@ -37,3 +39,13 @@ typedef struct {
     Message message;
     BOOL value;
 } MessageEndGame;
+
+typedef struct {
+    Message message;
+    BOOL value;
+} MessageWaitStart;
+
+typedef struct {
+    Message message;
+    BOOL value;
+} MessageWaitEnd;

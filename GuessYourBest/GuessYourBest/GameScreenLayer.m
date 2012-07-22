@@ -71,18 +71,15 @@
 		[CCMenuItemFont setFontSize:28];
 		
 		// Achievement Menu Item using blocks
-		CCMenuItem *quit = [CCMenuItemImage itemWithNormalImage:@"quit_red_button.png" selectedImage:@"quit_red_button_selected.png" block:^(id sender){
-            [[[GCHelper sharedInstance]delegate]matchEnded];
-		}];
-        
-        
-		CCMenu *menu = [CCMenu menuWithItems:quit, nil];
+		quitMenuItem = [CCMenuItemImage itemWithNormalImage:@"quit_red_button.png" selectedImage:@"quit_red_button_selected.png" block:^(id sender){
+            [[[GCHelper sharedInstance]delegate]matchEnded];}];
+		CCMenu *menu = [CCMenu menuWithItems:quitMenuItem, nil];
 		[menu setPosition:ccp( size.width/2 + 150, size.height/2 - 110)];
 		[self addChild:menu];
         
         
-        CCMenuItemImage *guess = [CCMenuItemImage itemWithNormalImage:@"guess_purple_button.png" selectedImage:@"guess_purple_button_selected.png" target:self selector:@selector(showGuessPicker)];
-        CCMenu *guessMenu = [CCMenu menuWithItems:guess, nil];
+        guessMenuItem = [CCMenuItemImage itemWithNormalImage:@"guess_purple_button.png" selectedImage:@"guess_purple_button_selected.png" target:self selector:@selector(showGuessPicker)];
+        CCMenu *guessMenu = [CCMenu menuWithItems:guessMenuItem, nil];
 		[guessMenu setPosition:ccp( size.width/2 - 150, size.height/2 - 110)];
         [self addChild:guessMenu];
         
@@ -103,6 +100,9 @@
         
         localEndGame = NO;
         remoteEndGame = NO;
+        
+        localWaiting = NO;
+        localWaiting = NO;
 
         productDictionary = [[self populateProductDictionary]retain];        
         [self loadAndSetNewProductForKey:[NSString stringWithFormat:@"%i",productCount]];
@@ -389,6 +389,9 @@
     NSData *data = [NSData dataWithBytes:&message length:sizeof(MessageSendScore)];
     [self sendData:data];
     
+    [quitMenuItem setIsEnabled:NO];
+    [guessMenuItem setIsEnabled:NO];
+    
     [self endMatch];
 }
 
@@ -408,6 +411,58 @@
     [[[GCHelper sharedInstance]delegate]matchEnded];
 }
 
+- (void)sendWaitStart
+{
+    localWaiting = YES;
+    
+    MessageWaitStart message;
+    message.message.messageType = kMessageWaitStart;
+    message.value = YES;
+    
+    NSData *data = [NSData dataWithBytes:&message length:sizeof(MessageWaitStart)];
+    [self sendData:data];
+
+}
+
+
+- (void)sendWaitEnd
+{
+    MessageWaitEnd message;
+    message.message.messageType = kMessageWaitEnd;
+    message.value = NO;
+    
+    NSData *data = [NSData dataWithBytes:&message length:sizeof(MessageWaitEnd)];
+    [self sendData:data];
+}
+
+
+- (void)recieveWaitStart:(BOOL)value
+{
+    remoteWaiting = value;
+        
+    // disable buttons
+    [quitMenuItem setIsEnabled:NO];
+    [guessMenuItem setIsEnabled:NO];
+    
+    
+}
+
+
+- (void)recieveWaitEnd:(BOOL)value
+{
+    remoteWaiting = value;
+    
+    // enable buttons
+    [quitMenuItem setIsEnabled:YES];
+    [guessMenuItem setIsEnabled:YES];
+    
+    productCount++;
+    [self loadAndSetNewProductForKey:[NSString stringWithFormat:@"%i",productCount]];
+    
+    localPlayerGuessed = NO;
+    remotePlayerGuessed = NO;
+}
+
 #pragma mark UIAlertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -423,11 +478,34 @@
         }
         else {
             
-            productCount++;
-            [self loadAndSetNewProductForKey:[NSString stringWithFormat:@"%i",productCount]];
             
-            localPlayerGuessed = NO;
-            remotePlayerGuessed = NO;
+            if (remoteWaiting == NO) {
+                localWaiting = YES;
+            
+                [quitMenuItem setIsEnabled:NO];
+                [guessMenuItem setIsEnabled:NO];
+            
+                [self sendWaitStart];
+            
+            }
+            else {
+            
+                [self sendWaitEnd];
+                
+                remoteWaiting = NO;
+                localWaiting = NO;
+            
+                productCount++;
+                [self loadAndSetNewProductForKey:[NSString stringWithFormat:@"%i",productCount]];
+            
+                localPlayerGuessed = NO;
+                remotePlayerGuessed = NO;
+                
+                [quitMenuItem setIsEnabled:YES];
+                [guessMenuItem setIsEnabled:YES];
+            }
+            
+
         }
         
     }

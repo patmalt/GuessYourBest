@@ -38,6 +38,12 @@
     
     BOOL localEndGame;
     BOOL remoteEndGame;
+    
+    BOOL localWaiting;
+    BOOL remoteWaiting;
+    
+    CCMenuItem *quitMenuItem;
+    CCMenuItem *guessMenuItem;
 }
 
 @property (assign) CCLabelTTF *localPlaerScoreLabel;
@@ -63,5 +69,8 @@
 - (void)updateRemotePlayerScore:(int)value;
 - (void)checkWinner;
 - (void)recieveEndGameMessage:(BOOL)value;
+
+- (void)recieveWaitStart:(BOOL)value;
+- (void)recieveWaitEnd:(BOOL)value;
 
 @end

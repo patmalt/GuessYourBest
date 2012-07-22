@@ -176,6 +176,7 @@
 		9729206A15BBBD4F00374A6B /* 9-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 9729205F15BBBD4F00374A6B /* 9-hd.png */; };
 		9729206C15BBBD9F00374A6B /* game_screen_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 9729206B15BBBD9400374A6B /* game_screen_bg.png */; };
 		9729207015BBBEB800374A6B /* products.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9729206F15BBBEB700374A6B /* products.plist */; };
+		973C288B15BCA83600524D57 /* ProductTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 973C288A15BCA83600524D57 /* ProductTest.m */; };
 		97DF4D1415BBCB8200A030FC /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 97DF4D1315BBCB8200A030FC /* Product.m */; };
 /* End PBXBuildFile section */
 
@@ -488,6 +489,8 @@
 		9729205F15BBBD4F00374A6B /* 9-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "9-hd.png"; sourceTree = "<group>"; };
 		9729206B15BBBD9400374A6B /* game_screen_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = game_screen_bg.png; sourceTree = "<group>"; };
 		9729206F15BBBEB700374A6B /* products.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = products.plist; path = ../products.plist; sourceTree = "<group>"; };
+		973C288915BCA83600524D57 /* ProductTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductTest.h; sourceTree = "<group>"; };
+		973C288A15BCA83600524D57 /* ProductTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductTest.m; sourceTree = "<group>"; };
 		97DF4D1215BBCB8200A030FC /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
 		97DF4D1315BBCB8200A030FC /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -548,6 +551,7 @@
 		970B10A415BAF854002DA2D5 /* GuessYourBest */ = {
 			isa = PBXGroup;
 			children = (
+				973C288515BCA7FC00524D57 /* Unit Test */,
 				970B121C15BAF856002DA2D5 /* AppDelegate.h */,
 				970B121D15BAF856002DA2D5 /* AppDelegate.m */,
 				970B122D15BAFAA7002DA2D5 /* Main Menu */,
@@ -1020,6 +1024,15 @@
 			name = Product;
 			sourceTree = "<group>";
 		};
+		973C288515BCA7FC00524D57 /* Unit Test */ = {
+			isa = PBXGroup;
+			children = (
+				973C288915BCA83600524D57 /* ProductTest.h */,
+				973C288A15BCA83600524D57 /* ProductTest.m */,
+			);
+			name = "Unit Test";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1242,6 +1255,7 @@
 				970B123915BAFD2A002DA2D5 /* GCHelper.m in Sources */,
 				97291FE615BB20FC00374A6B /* GameScreenLayer.m in Sources */,
 				97DF4D1415BBCB8200A030FC /* Product.m in Sources */,
+				973C288B15BCA83600524D57 /* ProductTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1293,6 +1307,12 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GuessYourBest/Prefix.pch;
@@ -1313,6 +1333,12 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(SDKROOT)/Developer/Library/Frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GuessYourBest/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"GuessYourBest/libs/kazmath/include\"";

@@ -133,6 +133,16 @@
         MessageEndGame *messageEndGame = (MessageEndGame*)[data bytes];
         [game recieveEndGameMessage:messageEndGame->value];
     }
+    else if (message->messageType == kMessageWaitStart) {
+        
+        MessageWaitStart *messageWaitStart = (MessageWaitStart*)[data bytes];
+        [game recieveWaitStart:messageWaitStart->value];
+    }
+    else if (message->messageType == kMessageWaitEnd) {
+        
+        MessageWaitEnd *messageWaitEnd = (MessageWaitEnd*)[data bytes];
+        [game recieveWaitEnd:messageWaitEnd->value];
+    }
     
 }
 
