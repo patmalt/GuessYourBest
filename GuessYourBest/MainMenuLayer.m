@@ -99,14 +99,7 @@
 
 - (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID {
     CCLOG(@"Received data");
-    
-    //GCHelper *helper = [GCHelper sharedInstance];
-    
-    /*if (helper.otherPlayerID == nil) {
-        helper.otherPlayerID = playerID;
-    }*/
-    
-    
+
     CCArray *arr = [[CCDirector sharedDirector] runningScene].children;
 
     CCNode *curr = nil;
@@ -129,7 +122,7 @@
         
         NSString *string1 = [NSString stringWithFormat:@"$%.0f",messageSendCore->number];
         
-        [game showAlert:string1];
+        [game changeRemoteGuess:string1];
         
     }
     

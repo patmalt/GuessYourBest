@@ -176,6 +176,7 @@
 		9729206A15BBBD4F00374A6B /* 9-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 9729205F15BBBD4F00374A6B /* 9-hd.png */; };
 		9729206C15BBBD9F00374A6B /* game_screen_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 9729206B15BBBD9400374A6B /* game_screen_bg.png */; };
 		9729207015BBBEB800374A6B /* products.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9729206F15BBBEB700374A6B /* products.plist */; };
+		97DF4D1415BBCB8200A030FC /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 97DF4D1315BBCB8200A030FC /* Product.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -486,9 +487,9 @@
 		9729205E15BBBD4F00374A6B /* 8-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "8-hd.png"; sourceTree = "<group>"; };
 		9729205F15BBBD4F00374A6B /* 9-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "9-hd.png"; sourceTree = "<group>"; };
 		9729206B15BBBD9400374A6B /* game_screen_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = game_screen_bg.png; sourceTree = "<group>"; };
-		9729206D15BBBEAC00374A6B /* Product.h */ = {isa = PBXFileReference; name = Product.h; path = ../Product.h; sourceTree = "<group>"; };
-		9729206E15BBBEAD00374A6B /* Product.m */ = {isa = PBXFileReference; name = Product.m; path = ../Product.m; sourceTree = "<group>"; };
 		9729206F15BBBEB700374A6B /* products.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = products.plist; path = ../products.plist; sourceTree = "<group>"; };
+		97DF4D1215BBCB8200A030FC /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
+		97DF4D1315BBCB8200A030FC /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1012,9 +1013,9 @@
 		9729207115BBC04D00374A6B /* Product */ = {
 			isa = PBXGroup;
 			children = (
+				97DF4D1215BBCB8200A030FC /* Product.h */,
+				97DF4D1315BBCB8200A030FC /* Product.m */,
 				9729206F15BBBEB700374A6B /* products.plist */,
-				9729206D15BBBEAC00374A6B /* Product.h */,
-				9729206E15BBBEAD00374A6B /* Product.m */,
 			);
 			name = Product;
 			sourceTree = "<group>";
@@ -1240,6 +1241,7 @@
 				970B122C15BAFA68002DA2D5 /* MainMenuLayer.m in Sources */,
 				970B123915BAFD2A002DA2D5 /* GCHelper.m in Sources */,
 				97291FE615BB20FC00374A6B /* GameScreenLayer.m in Sources */,
+				97DF4D1415BBCB8200A030FC /* Product.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
