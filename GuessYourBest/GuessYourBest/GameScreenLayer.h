@@ -10,9 +10,8 @@
 #import <GameKit/GameKit.h>
 #import "cocos2d.h"
 #import "MessageTypes.h"
-#import "Product.h"
 
-@interface GameScreenLayer : CCLayer {
+@interface GameScreenLayer : CCLayer <UIAlertViewDelegate> {
     
     
     int localPlayerScore;
@@ -23,14 +22,22 @@
     CCLabelTTF *localGuessLabel;
     CCLabelTTF *remoteGuessLabel;
     float localPlayerGuess;
-    float remotePlayerLabel;
+    float remotePlayerGuess;
     
     CCSprite *productImage;
     CCLabelTTF *productTitleLabel;
     CCLabelTTF *productDescLabel;
     
-    NSDictionary *productDictionary;
     int productCount;
+    
+    BOOL localPlayerGuessed;
+    BOOL remotePlayerGuessed;
+    
+    NSDictionary *productDictionary;
+    NSString *remoteAlias;
+    
+    BOOL localEndGame;
+    BOOL remoteEndGame;
 }
 
 @property (assign) CCLabelTTF *localPlaerScoreLabel;
@@ -48,8 +55,13 @@
 + (id) scene;
 - (void) makeGuess:(NSString*)guess;
 - (void) showGuessPicker;
-- (void) changeRemoteGuess:(NSString*)string;
+- (void) changeRemoteGuess:(float)value;
 - (void) loadAndSetNewProductForKey:(NSString*)key;
 - (NSDictionary*) populateProductDictionary;
+- (void)tryToDetermineWinnerOfProduct;
+- (void)sendLocalPlayerScore;
+- (void)updateRemotePlayerScore:(int)value;
+- (void)checkWinner;
+- (void)recieveEndGameMessage:(BOOL)value;
 
 @end

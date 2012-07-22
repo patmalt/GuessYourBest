@@ -15,10 +15,10 @@
     NSString * price;
 }
 
-@property (assign) NSString * title;
-@property (assign) NSString * description;
-@property (assign) NSString * image;
-@property (assign) NSString * price;
+@property (nonatomic,retain) NSString * title;
+@property (nonatomic,retain) NSString * description;
+@property (nonatomic,retain) NSString * image;
+@property (nonatomic,retain) NSString * price;
 
 - (id)initWihTitle:(NSString*)inTitle andDesc:(NSString*)desc andImageName:(NSString*)imageName andPrice:(NSString*)inputPrice;
 

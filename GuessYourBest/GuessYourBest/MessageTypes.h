@@ -9,7 +9,9 @@
 
 typedef enum {
     kMessageRemoteTyping,
-    kMessageSendGuess
+    kMessageSendGuess,
+    kMessageScore,
+    kMessageEndGame
 } MessageType;
 
 typedef struct {
@@ -19,9 +21,19 @@ typedef struct {
 typedef struct {
     Message message;
     float number;
-} MessageSendScore;
+} MessageSendGuess;
 
 typedef struct {
     Message message;
     BOOL typing;
 } MessageRemoteTyping;
+
+typedef struct {
+    Message message;
+    int value;
+} MessageSendScore;
+
+typedef struct {
+    Message message;
+    BOOL value;
+} MessageEndGame;

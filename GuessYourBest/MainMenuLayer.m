@@ -118,14 +118,26 @@
     
     if (message->messageType == kMessageSendGuess) {
         
-        MessageSendScore *messageSendCore = (MessageSendScore*)[data bytes];
+        MessageSendGuess *messageSendGuess = (MessageSendGuess*)[data bytes];
         
-        NSString *string1 = [NSString stringWithFormat:@"$%.0f",messageSendCore->number];
-        
-        [game changeRemoteGuess:string1];
+        [game changeRemoteGuess:messageSendGuess->number];
         
     }
+    else if (message->messageType == kMessageScore) {
+        
+        MessageSendScore *messageSendScore = (MessageSendScore*)[data bytes];
+        [game updateRemotePlayerScore:messageSendScore->value];
+    }
+    else if (message->messageType == kMessageEndGame) {
+        
+        MessageEndGame *messageEndGame = (MessageEndGame*)[data bytes];
+        [game recieveEndGameMessage:messageEndGame->value];
+    }
     
+}
+
+- (void)inviteReceived {
+     
 }
 
 @end

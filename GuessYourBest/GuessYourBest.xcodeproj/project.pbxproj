@@ -1298,6 +1298,7 @@
 				GCC_PREFIX_HEADER = GuessYourBest/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"GuessYourBest/libs/kazmath/include\"";
 				INFOPLIST_FILE = GuessYourBest/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",
@@ -1316,6 +1317,7 @@
 				GCC_PREFIX_HEADER = GuessYourBest/Prefix.pch;
 				HEADER_SEARCH_PATHS = "\"GuessYourBest/libs/kazmath/include\"";
 				INFOPLIST_FILE = GuessYourBest/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-ObjC",

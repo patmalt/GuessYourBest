@@ -11,6 +11,7 @@
 #import "MainMenuLayer.h"
 #import "GCHelper.h"
 #import "AppDelegate.h"
+#import "Product.h"
 
 @implementation GameScreenLayer
 
@@ -42,12 +43,13 @@
         GKPlayer *remotePlayer = [[[GCHelper sharedInstance]playersDict] objectForKey:[[GCHelper sharedInstance]otherPlayerID]];
         
         CCLabelTTF *localPlayerAliasLabel = [CCLabelTTF labelWithString:localPlayer.alias fontName:@"Marker Felt" fontSize:20];
-        localPlayerAliasLabel.position = ccp(65,305);
+        localPlayerAliasLabel.position = ccp(65,308);
         localPlayerAliasLabel.color = ccc3(158,31,99);
         [self addChild:localPlayerAliasLabel];
         
-        CCLabelTTF *remotePlayerAliasLabel = [CCLabelTTF labelWithString:remotePlayer.alias fontName:@"Marker Felt" fontSize:20];
-        remotePlayerAliasLabel.position = ccp(405,305);
+        remoteAlias = remotePlayer.alias;
+        CCLabelTTF *remotePlayerAliasLabel = [CCLabelTTF labelWithString:remoteAlias fontName:@"Marker Felt" fontSize:20];
+        remotePlayerAliasLabel.position = ccp(405,308);
         remotePlayerAliasLabel.color = ccc3(158,31,99);
         [self addChild:remotePlayerAliasLabel];
         
@@ -95,9 +97,15 @@
         [self addChild:localGuessLabel];
         
         productCount = 0;
-        productDictionary = [self populateProductDictionary];
-		[self loadAndSetNewProductForKey:[NSString stringWithFormat:@"%i",productCount]];
-        productCount++;
+        
+        localPlayerGuessed = NO;
+        remotePlayerGuessed = NO;
+        
+        localEndGame = NO;
+        remoteEndGame = NO;
+
+        productDictionary = [[self populateProductDictionary]retain];        
+        [self loadAndSetNewProductForKey:[NSString stringWithFormat:@"%i",productCount]];
     }
     
     return self;
@@ -107,6 +115,7 @@
 - (void) dealloc
 {
     [super dealloc];
+    [productDictionary release];
 }
 
 
@@ -119,16 +128,25 @@
 
 - (void) makeGuess:(NSString*)guess
 {
-    MessageSendScore message;
+    MessageSendGuess message;
     message.message.messageType = kMessageSendGuess;
     
     float a = [guess floatValue];
     
     [localGuessLabel setString:[NSString stringWithFormat:@"$%.0f",a]];
     
+    localPlayerGuessed = YES;
+    localPlayerGuess = a;
+    
+    if ([remoteGuessLabel.string isEqual:[NSString stringWithFormat:@"???"]]) {
+        [remoteGuessLabel setString:[NSString stringWithFormat:@"$%.0f",remotePlayerGuess]];
+    }
+    
     message.number = a;
-    NSData *data = [NSData dataWithBytes:&message length:sizeof(MessageSendScore)];
+    NSData *data = [NSData dataWithBytes:&message length:sizeof(MessageSendGuess)];
     [self sendData:data];
+    
+    [self tryToDetermineWinnerOfProduct];
 }
 
 
@@ -143,19 +161,153 @@
 }
 
 
-- (void) changeRemoteGuess:(NSString*)string
+- (void) changeRemoteGuess:(float)value
 {
-    [remoteGuessLabel setString:string];
+    if ([localGuessLabel.string isEqual:[NSString stringWithFormat:@"---"]]) {
+        [remoteGuessLabel setString:@"???"];
+    }
+    else {
+        [remoteGuessLabel setString:[NSString stringWithFormat:@"$%.0f",value]];
+    }
+    
+    remotePlayerGuess = value;
+    remotePlayerGuessed = YES;
+    
+    [self tryToDetermineWinnerOfProduct];
+}
+
+
+- (void)tryToDetermineWinnerOfProduct
+{
+    if (!(localPlayerGuessed && remotePlayerGuessed)) {return;}
+    
+    Product *curr = (Product*)[productDictionary objectForKey:[NSString stringWithFormat:@"%i",productCount]];
+
+    float actualPrice = [curr.price floatValue];
+
+    float localPlayerDiff = actualPrice - localPlayerGuess;
+    float remotePlayerDiff = actualPrice - remotePlayerGuess;
+    
+    NSString *localString;
+    NSString *remoteString;
+    
+    int localFlag;
+    int remoteFlag;
+    
+    if (localPlayerDiff == 0) {
+        localFlag = 0;
+        localString = [NSString stringWithFormat:@"You guessed the retail price exactly!"];
+    }
+    else if (localPlayerDiff < 0) {
+        localFlag = -1;
+        localString = [NSString stringWithFormat:@"Your guess was over the retail price!"];
+    }
+    else {
+        localFlag = 1;
+        localString = [NSString stringWithFormat:@"You guessed $%.0f under the retail price!",localPlayerDiff];
+    }
+    
+
+    NSString *otherPlayer = remoteAlias;
+    
+    if (remotePlayerDiff == 0) {
+        remoteFlag = 0;
+        remoteString = [NSString stringWithFormat:@"%@ guessed the retail price exactly!",otherPlayer];
+    }
+    else if (remotePlayerDiff < 0) {
+        remoteFlag = -1;
+        remoteString = [NSString stringWithFormat:@"%@ guessed over the retail price!",otherPlayer];
+    }
+    else {
+        remoteFlag = 1;
+        remoteString = [NSString stringWithFormat:@"%@ guessed $%.0f under the retail price",otherPlayer,remotePlayerDiff];
+    }
+    
+    NSString *result;
+    
+    if ((localFlag == 0 && remoteFlag == 0) || (localFlag == -1 && remoteFlag == -1) || (localPlayerDiff == remotePlayerDiff)) {
+        result = [NSString stringWithFormat:@"Tie!"];
+    }
+    else {
+        
+        if ( ((localPlayerDiff < remotePlayerDiff) && (localPlayerDiff >= 0)) || (localPlayerDiff >= 0 && remotePlayerDiff < 0)) {
+            
+            result = [NSString stringWithFormat:@"You won this product!"];
+            
+            if (localPlayerDiff == 0) {
+                localPlayerScore += 2;
+            }
+            else {
+                localPlayerScore++;
+            }
+            
+            [localPlaerScoreLabel setString:[NSString stringWithFormat:@"Score: %i",localPlayerScore]];
+            [self sendLocalPlayerScore];
+            
+        }
+        else {
+            result = [NSString stringWithFormat:@"%@ won this product",otherPlayer];
+        }
+    }
+    
+    NSString *message = [NSString stringWithFormat:@"%@\n%@\n%@",result,localString,remoteString];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:[NSString stringWithFormat:@"Acutal Price $%@",curr.price] message:message delegate:self cancelButtonTitle:@"Next Product" otherButtonTitles: nil];
+    alert.tag = 8888;
+    [alert show];
+    [alert release];
+}
+
+
+- (void)sendLocalPlayerScore
+{
+    MessageSendScore message;
+    message.message.messageType = kMessageScore;
+    message.value = localPlayerScore;
+    
+    NSData *data = [NSData dataWithBytes:&message length:sizeof(MessageSendScore)];
+    [self sendData:data];
+}
+
+
+- (void)updateRemotePlayerScore:(int)value
+{
+    remotePlayerScore = value;
+    [remotePlaerScoreLabel setString:[NSString stringWithFormat:@"Score: %i",value]];
+}
+
+
+- (void)checkWinner
+{
+    NSString *winner;
+    NSString *title;
+    if (localPlayerScore > remotePlayerScore) {
+        winner = [NSString stringWithFormat:@"You Win!"];
+        title = [NSString stringWithFormat:@"Congratulations"];
+    }
+    else if (localPlayerScore < remotePlayerScore) {
+        winner = [NSString stringWithFormat:@"You Lost to %@!",remoteAlias];
+        title = [NSString stringWithFormat:@"Sorry"];
+        
+    }
+    else {
+        winner = [NSString stringWithFormat:@"You tied %@",remoteAlias];
+        title = [NSString stringWithFormat:@"Tie"];
+    }
+    
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:title message:winner delegate:self cancelButtonTitle:@"Quit" otherButtonTitles: nil];
+    alert.tag = 9999;
+    [alert show];
+    [alert release];
 }
 
 
 - (void) loadAndSetNewProductForKey:(NSString*)key
 {
-    Product *curr = [productDictionary objectForKey:key];
+    Product *curr = (Product*)[productDictionary objectForKey:key];
     
-    if (productTitleLabel == nil) {
+    if (self.productTitleLabel == nil) {
         productTitleLabel = [CCLabelTTF labelWithString:curr.title fontName:@"Marker Felt" fontSize:12];
-        productTitleLabel.position = ccp(240,220);
+        productTitleLabel.position = ccp(240,290);
         productTitleLabel.color = ccc3(158,31,99);
         [self addChild:productTitleLabel];
     }
@@ -163,6 +315,34 @@
         [productTitleLabel setString:curr.title];
     }
     
+    if (productDescLabel == nil) {
+        productDescLabel = [CCLabelTTF labelWithString:curr.description fontName:@"Marker Felt" fontSize:12];
+        productDescLabel.position = ccp(240,90);
+        productDescLabel.color = ccc3(158,31,99);
+        [self addChild:productDescLabel];
+    }
+    else {
+        [productDescLabel setString:curr.description];
+    }
+    
+    if (productImage == nil) {
+        CGSize size = [[CCDirector sharedDirector] winSize];
+        
+        productImage = [CCSprite spriteWithFile:curr.image];
+        productImage.position = ccp(size.width/2, size.height/2+20);
+        
+        [self addChild:productImage];
+    }
+    else {
+        CCTexture2D* tex = [[CCTextureCache sharedTextureCache] addImage:curr.image];
+        [productImage setTexture: tex];
+    }
+    
+    [localGuessLabel setString:@"---"];
+    [remoteGuessLabel setString:@"---"];
+    
+    localPlayerGuessed = NO;
+    remotePlayerGuessed = NO;
 }
 
 
@@ -173,23 +353,84 @@
     NSString *productsPath = [[NSBundle mainBundle] pathForResource:@"products" ofType:@"plist"];
     NSDictionary *prodDict = [NSDictionary dictionaryWithContentsOfFile:productsPath];
     
-    for (int count = 0; count < 4; count++) {
+    for (int count = 0; count <= 4; count++) {
         
-        int rand = arc4random() % 10;
+        //int rand = arc4random() % 10;
         
-        NSDictionary *currentDict = [prodDict objectForKey:[NSString stringWithFormat:@"%i",rand]];
+        NSDictionary *currentDict = [prodDict objectForKey:[NSString stringWithFormat:@"%i",count]];
         NSString *title = [currentDict objectForKey:@"title"];
-        NSString *price = [currentDict objectForKey:@"title"];
-        NSString *desc = [currentDict objectForKey:@"title"];
-        NSString *imageName = [currentDict objectForKey:@"title"];
+        NSString *price = [currentDict objectForKey:@"price"];
+        
+        NSString *desc = [currentDict objectForKey:@"description"];
+        NSString *imageName = [currentDict objectForKey:@"imageName"];
+        
         Product *newProd = [[Product alloc]initWihTitle:title andDesc:desc andImageName:imageName andPrice:price];
-        [tempDict setObject:newProd forKey:[NSString stringWithFormat:@"%i",count]];
+        
+        [tempDict setObject:newProd  forKey:[NSString stringWithFormat:@"%i",count]];
+        
         [newProd release];
     }
-    
+
+
     return [NSDictionary dictionaryWithDictionary:tempDict];
-    
     [tempDict release];
+    
+}
+
+
+- (void)sendEndGameMessage
+{
+    localEndGame = YES;
+    
+    MessageEndGame message;
+    message.message.messageType = kMessageEndGame;
+    message.value = YES;
+    
+    NSData *data = [NSData dataWithBytes:&message length:sizeof(MessageSendScore)];
+    [self sendData:data];
+    
+    [self endMatch];
+}
+
+
+- (void)recieveEndGameMessage:(BOOL)value
+{
+    remoteEndGame = value;
+    [self endMatch];
+}
+
+
+- (void)endMatch 
+{
+    
+    if (!(localEndGame && remoteEndGame)) {return;}
+    
+    [[[GCHelper sharedInstance]delegate]matchEnded];
+}
+
+#pragma mark UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 9999) {
+        
+        [self sendEndGameMessage];
+    }
+    else if (alertView.tag == 8888) {
+        
+        if (productCount == 4) {
+            [self checkWinner];
+        }
+        else {
+            
+            productCount++;
+            [self loadAndSetNewProductForKey:[NSString stringWithFormat:@"%i",productCount]];
+            
+            localPlayerGuessed = NO;
+            remotePlayerGuessed = NO;
+        }
+        
+    }
 }
 
 @end

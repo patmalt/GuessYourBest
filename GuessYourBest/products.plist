@@ -7,29 +7,29 @@
 		<key>title</key>
 		<string>Del Monte Fruit Cocktail, 106 Oz</string>
 		<key>description</key>
-		<string>Rely on Del Monte brand to bring you nature&apos;s highest quality peaches. Contains no artificial flavors or sweeteners. Fruit cocktail in light syrup. No preservatives. Fat-free food. Picked and packed at the peak of ripeness.</string>
+		<string>Rely on Del Monte brand to bring you nature&apos;s highest quality peaches. Fruit cocktail in light syrup.</string>
 		<key>price</key>
 		<string>6</string>
 		<key>imageName</key>
 		<string>0.png</string>
 	</dict>
-	<key>1</key>
+	<key>11</key>
 	<dict>
 		<key>title</key>
 		<string>Libby&apos;s Sweet Peas, 15-Ounce Cans (Pack of 12)</string>
 		<key>description</key>
-		<string>Libby&apos;s sweet peas comes in 15 ounce cans with pack of 12. It is low in fat, low in calories, and a rich source of fiber. It provide vitamins A and C, plus calcium and iron. Use them for their sweet flavor in side dishes or part of a recipe-from soups to salads or stews to casseroles and pasta. Seneca foods has been dedicated to providing quality food products and service excellence to the customers.</string>
+		<string>Libby&apos;s sweet peas comes in 15 ounce cans with pack of 12.</string>
 		<key>price</key>
 		<string>12</string>
 		<key>imageName</key>
 		<string>1.png</string>
 	</dict>
-	<key>2</key>
+	<key>22</key>
 	<dict>
 		<key>title</key>
 		<string>Walnut Acres Organic Baked Beans, Maple Onion, 15 Ounce Cans (Pack of 12)</string>
 		<key>description</key>
-		<string>Walnut Acres Organic Baked Beans are simmered with just the right amount of sweetness and spice for a rich comforting taste your family will love. All ingredients are grown without the use of potentially harmful pesticides or genetically engineered organisms. Certified Organic by Quality Assurance International.</string>
+		<string>Walnut Acres Organic Baked Beans are simmered with just the right amount of sweetness and spice for a rich comforting taste your family will love. </string>
 		<key>price</key>
 		<string>26</string>
 		<key>imageName</key>
@@ -40,7 +40,7 @@
 		<key>title</key>
 		<string>Bath and Body Works Japanese Cherry Blossom Signature Collection Body Lotion 8 fl oz (236 ml)</string>
 		<key>description</key>
-		<string>Our exclusive Signature Body Lotion formula, fortified with powerful ingredients like super conditioning Shea Butter, fast absorbing Jojoba Oil and protective Vitamin E, hydrates skin with moisture that lasts all day. Our non-greasy formula absorbs quickly and completely to leave skin feeling incredibly soft, smooth and nourished, making it the perfect daily moisturizer.</string>
+		<string>Our exclusive Signature Body Lotion formula, fortified with powerful ingredients.</string>
 		<key>price</key>
 		<string>11</string>
 		<key>imageName</key>
@@ -51,7 +51,7 @@
 		<key>title</key>
 		<string>Hamilton Beach Smoothie Smart Blender</string>
 		<key>description</key>
-		<string>The Smoothie Smart Blender prepares a perfect smoothie with the press of a button:  Auto Smoothie.  This 45-second smart blending cycle is programmed with the precise pulses and speeds needed to get the job done right.  At the end of the cycle, the blender shuts off automatically.</string>
+		<string>The Smoothie Smart Blender prepares a perfect smoothie with the press of a button: Auto Smoothie.</string>
 		<key>price</key>
 		<string>43</string>
 		<key>imageName</key>
@@ -62,7 +62,7 @@
 		<key>title</key>
 		<string>Canon PowerShot SX260 HS Camera</string>
 		<key>description</key>
-		<string>Canon&apos;s powerful 20x Optical Zoom and 25mm Wide-Angle lens with Optical Image Stabilization delivers stunning images from up close or at a distance. 12.1 Megapixel High-Sensitivity CMOS sensor combined with the DIGIC 5 Image Processor creates Canon’s HS SYSTEM for outstanding low-light performance. Shoot beautiful 1080p Full HD video in stereo sound with a dedicated movie button; zoom while shooting and play back videos on an HDTV via the HDMI output.</string>
+		<string>Canon&apos;s powerful 20x Optical Zoom and 25mm Wide-Angle lens with Optical Image Stabilization</string>
 		<key>price</key>
 		<string>298</string>
 		<key>imageName</key>
@@ -73,7 +73,7 @@
 		<key>title</key>
 		<string>Nature&apos;s Variety Prairie Dry Dog Food, Chicken Meal &amp; Brown Rice Medley, 30-Pound Bag</string>
 		<key>description</key>
-		<string>Nature&apos;s Variety Prairie Brand Dry Kibble Diets are designed to be rotated freely for variety and optimal nutrition. Emphasis is put on fresh meat as the first and prominent ingredient of each diet. The grains present in these diets are only whole grains; never inferior grain fractions. All Nature&apos;s Variety products are naturally preserved with vitamins and herbal extracts, and sealed in oxygen limiting packaging. </string>
+		<string>Nature&apos;s Variety Prairie Brand Dry Kibble Diets are designed to be rotated freely for variety and optimal nutrition.</string>
 		<key>price</key>
 		<string>49</string>
 		<key>imageName</key>
@@ -84,7 +84,7 @@
 		<key>title</key>
 		<string>Head &amp; Shoulders Clinical Strength Anti Dandruff Shampoo 14.2 Fluid ounce (Pack of 2)</string>
 		<key>description</key>
-		<string>Who said severe dandruff has to be a problem? Head &amp; Shoulders&apos; medicated shampoo, Clinical Strength, starts fighting dandruff from the first wash and helps prevent associated itching and redness. With daily usage, persistent, severe dandruff can be well under control.</string>
+		<string>Who said severe dandruff has to be a problem? Head &amp; Shoulders&apos; medicated shampoo, Clinical Strength.</string>
 		<key>price</key>
 		<string>14</string>
 		<key>imageName</key>
@@ -95,29 +95,29 @@
 		<key>title</key>
 		<string>Bounty Paper Towels, White, 15-Roll Package</string>
 		<key>description</key>
-		<string>Stronger when wet, so you can rinse it, reuse it, and throw it away. Absorbs faster than any other paper towel so you can get the job done right the first time. Lets you thoroughly clean and then throw the towel away, removing the potential breeding ground for germs.</string>
+		<string>Stronger when wet, so you can rinse it, reuse it, and throw it away.</string>
 		<key>price</key>
 		<string>22</string>
 		<key>imageName</key>
 		<string>8.png</string>
 	</dict>
-	<key>9</key>
+	<key>2</key>
 	<dict>
 		<key>title</key>
 		<string>Bose® QuietComfort® 15 Acoustic Noise Cancelling® Headphones</string>
 		<key>description</key>
-		<string>QuietComfort 15 headphones feature exclusive Bose advancements in noise reduction technology. Enjoy music and movies with clear and lifelike sound. Comfortable, around-the-ear fit; ideal for frequent flyers. Includes cable with remote for iPhone®/iPod® control, mic for hands-free iPhone calling. AAA battery: 35 hours average life.</string>
+		<string>QuietComfort 15 headphones feature exclusive Bose advancements in noise reduction technology.</string>
 		<key>price</key>
-		<string>$299</string>
+		<string>299</string>
 		<key>imageName</key>
 		<string>9.png</string>
 	</dict>
-	<key>10</key>
+	<key>1</key>
 	<dict>
 		<key>title</key>
 		<string>TomTom START 55TM 5-Inch GPS Navigator with Lifetime Traffic &amp; Maps and Roadside Assistance</string>
 		<key>description</key>
-		<string>5-Inch Touch Screen. Lifetime Traffic and Map Updates in US and Canada - Outsmart traffic and road changes. Advanced Lane Guidance - Highlights the correct lane. Fuel Prices - Find the lowest gas prices by location and price. TomTom Roadside Assistance - Reliable roadside assistance you can trust, 24/7.</string>
+		<string>5-Inch Touch Screen. Lifetime Traffic and Map Updates in US and Canada</string>
 		<key>price</key>
 		<string>130</string>
 		<key>imageName</key>

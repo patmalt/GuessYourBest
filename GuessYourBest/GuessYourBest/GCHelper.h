@@ -14,6 +14,7 @@
     - (void)matchStarted;
     - (void)matchEnded;
     - (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;
+    - (void)inviteReceived;
 @end
 
 @interface GCHelper : NSObject <GKMatchmakerViewControllerDelegate, GKMatchDelegate> {
@@ -30,6 +31,8 @@
     NSString *otherPlayerID;
     
     NSString *resultString;
+    GKInvite *pendingInvite;
+    NSArray *pendingPlayersToInvite;
 }
 
 @property (assign, readonly) BOOL gameCenterAvailable;
@@ -43,6 +46,9 @@
 @property (assign) NSString *otherPlayerID;
 
 @property (assign) NSString *resultString;
+
+@property (retain) GKInvite *pendingInvite;
+@property (retain) NSArray *pendingPlayersToInvite;
 
 + (GCHelper *)sharedInstance;
 - (void)authenticateLocalUser;
